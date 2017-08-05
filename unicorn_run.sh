@@ -14,7 +14,8 @@ set -e
 
 # Feel free to change any of the following variables for your app:
 TIMEOUT=${TIMEOUT-60}
-APP_ROOT=/Users/dongjunjun/peng/my/rails_productions/rails_32
+APP_ROOT=/Users/dongjunjun/peng/my/rails_productions/rails32_deploy/current
+#APP_ROOT=/Users/dongjunjun/peng/my/rails_productions/rails_32
 PID=$APP_ROOT/tmp/pids/unicorn.pid
 CMD="bundle exec unicorn_rails -D -c $APP_ROOT/config/unicorn.rb  -E development"
 INIT_CONF=$APP_ROOT/config/init.conf
