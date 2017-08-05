@@ -41,6 +41,20 @@ task :setup do
     command %[mkdir -p config]
 
     # Create database.yml for Postgres if it doesn't exist
+    path_database_yml = "config/database.yml"
+    database_yml = %[
+production:
+  database: db/production.sqlite3
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
+]
+    command %[test -e #{path_database_yml} || echo "#{database_yml}" > #{path_database_yml}]
     # Create secrets.yml if it doesn't exist
     path_secrets_yml = "config/secrets.yml"
     secrets_yml = %[production:\n  secret_key_base:\n    #{`rake secret`.strip}]
@@ -67,7 +81,7 @@ task :deploy do
     invoke :'deploy:cleanup'
 
     on :launch do
-      # command "sh #{fetch(:deploy_to)}/current/unicorn_run.sh restart"
+      command "sh #{fetch(:deploy_to)}/current/unicorn_run.sh restart"
     end
   end
 
