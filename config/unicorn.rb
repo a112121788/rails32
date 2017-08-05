@@ -23,9 +23,10 @@
 # Help ensure your application will always spawn in the symlinked
 # "current" directory that Capistrano sets up.
 
-app_path="/Users/dongjunjun/peng/my/rails_productions/rails32_deploy/current"
+app_path = File.expand_path(File.join(File.dirname(__FILE__), '../../'))
 
-working_directory app_path # available in 0.94.0+
+
+working_directory File.join(app_path, 'current')
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
@@ -45,15 +46,14 @@ end
 timeout 1200
 
 # feel free to point this anywhere accessible on the filesystem
-pid app_path+"/tmp/pids/unicorn.pid"
+pid File.join(app_path, 'shared/unicorn.pid')
+stdout_path File.join(app_path, 'current/log/unicorn.log')
 
 # By default, the Unicorn logger will write to stderr.
 # Additionally, ome applications/frameworks log to stderr or stdout,
 # so prevent them from going to /dev/null when daemonized here:
-stderr_path app_path+"/log/unicorn.stderr.log"
-
-stdout_path app_path+"/log/unicorn.stdout.log"
-
+stderr_path File.join(app_path, 'current/log/unicorn.log')
+stdout_path File.join(app_path, 'current/log/unicorn.log')
 # combine Ruby 2.0.0dev or REE with "preload_app true" for memory savings
 # http://rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
 preload_app true
