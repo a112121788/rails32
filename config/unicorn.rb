@@ -23,7 +23,7 @@
 # Help ensure your application will always spawn in the symlinked
 # "current" directory that Capistrano sets up.
 
-app_path="."
+app_path="/Users/dongjunjun/peng/my/rails_productions/rails32_deploy/current"
 
 working_directory app_path # available in 0.94.0+
 
