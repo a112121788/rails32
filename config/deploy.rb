@@ -8,6 +8,7 @@ require 'mina/rbenv'
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
+set :term_mode, :system
 set :application_name, 'rails32'
 set :domain, '192.168.99.233' #'example.com'
 set :user, 'dongjunjun' #fetch(:application_name)
@@ -24,6 +25,7 @@ set :branch, 'master'
 # shared dirs and files will be symlinked into the app-folder by the 'deploy:link_shared_paths' step.
 # set :shared_dirs, fetch(:shared_dirs, []).push('somedir')
 set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/secrets.yml')
+
 
 # This task is the environment that is loaded for all remote run commands, such as
 # `mina deploy` or `mina rake`.
