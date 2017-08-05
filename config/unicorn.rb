@@ -53,7 +53,6 @@ stdout_path File.join(app_path, 'current/log/unicorn.log')
 # Additionally, ome applications/frameworks log to stderr or stdout,
 # so prevent them from going to /dev/null when daemonized here:
 stderr_path File.join(app_path, 'current/log/unicorn.log')
-stdout_path File.join(app_path, 'current/log/unicorn.log')
 # combine Ruby 2.0.0dev or REE with "preload_app true" for memory savings
 # http://rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
 preload_app true
