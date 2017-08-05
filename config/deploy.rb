@@ -41,13 +41,6 @@ task :setup do
     command %[mkdir -p config]
 
     # Create database.yml for Postgres if it doesn't exist
-    path_database_yml = "config/database.yml"
-    database_yml = %[production:
-      database: db/production.sqlite3}
-      adapter: sqlite3
-      pool: 5
-      timeout: 5000]
-    command %[test -e #{path_database_yml} || echo "#{database_yml}" > #{path_database_yml}]
     # Create secrets.yml if it doesn't exist
     path_secrets_yml = "config/secrets.yml"
     secrets_yml = %[production:\n  secret_key_base:\n    #{`rake secret`.strip}]
@@ -66,16 +59,16 @@ task :deploy do
   deploy do
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
-    command %[source ~/.bash_profile]
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
+    invoke :'rails:db_create'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
 
     on :launch do
-      command "sh #{fetch(:deploy_to)}/current/unicorn_run.sh upgrade"
+      command "sh #{fetch(:deploy_to)}/current/unicorn_run.sh restart"
     end
   end
 
