@@ -68,7 +68,7 @@ task :deploy do
     invoke :'deploy:cleanup'
 
     on :launch do
-      command "sh #{fetch(:deploy_to)}/current/unicorn_run.sh restart"
+      # command "sh #{fetch(:deploy_to)}/current/unicorn_run.sh restart"
     end
   end
 
