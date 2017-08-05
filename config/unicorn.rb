@@ -35,12 +35,12 @@ working_directory File.join(app_path, 'current')
 rails_env = ENV["RAILS_ENV"] || "development"
 if rails_env == "development"
   worker_processes 2
-  # listen 3000, :tcp_nopush => true
-  listen "/tmp/rails23.sock"
+  listen 10001, :tcp_nopush => true
+  # listen "/tmp/rails23.sock"
 else
   worker_processes 12
-  # listen 8082, :tcp_nopush => true
-  listen "/tmp/rails23.sock"
+  listen 10001, :tcp_nopush => true
+  # listen "/tmp/rails23.sock"
 end
 
 # nuke workers after 30 seconds instead of 60 seconds (the default)
@@ -58,7 +58,7 @@ stderr_path File.join(app_path, 'current/log/unicorn.log')
 # http://rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
 preload_app true
 GC.respond_to?(:copy_on_write_friendly=) and
-  GC.copy_on_write_friendly = true
+    GC.copy_on_write_friendly = true
 
 # Enable this flag to have unicorn test client connections by writing the
 # beginning of the HTTP headers before calling the application.  This
@@ -72,7 +72,7 @@ before_fork do |server, worker|
   # the following is highly recomended for Rails + "preload_app true"
   # as there's no need for the master process to hold a connection
   defined?(ActiveRecord::Base) and
-    ActiveRecord::Base.connection.disconnect!
+      ActiveRecord::Base.connection.disconnect!
 
   # The following is only recommended for memory/DB-constrained
   # installations.  It is not needed if your system can house
@@ -106,7 +106,7 @@ after_fork do |server, worker|
 
   # the following is *required* for Rails + "preload_app true",
   defined?(ActiveRecord::Base) and
-    ActiveRecord::Base.establish_connection
+      ActiveRecord::Base.establish_connection
 
   # if preload_app is true, then you may also want to check and
   # restart any other shared sockets/descriptors such as Memcached,
