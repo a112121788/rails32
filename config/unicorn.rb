@@ -35,7 +35,8 @@ working_directory File.join(app_path, 'current')
 rails_env = ENV["RAILS_ENV"] || "development"
 if rails_env == "development"
   worker_processes 2
-  listen 3000, :tcp_nopush => true
+  # listen 3000, :tcp_nopush => true
+  listen "/tmp/rails23.sock"
 else
   worker_processes 12
   # listen 8082, :tcp_nopush => true
