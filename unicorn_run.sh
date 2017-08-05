@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/local/sh
 set -e
 ### BEGIN INIT INFO
 # Provides:          unicorn

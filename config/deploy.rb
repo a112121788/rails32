@@ -31,7 +31,7 @@ task :environment do
   ruby_version = File.read('.ruby-version').strip
   raise "Couldn't determine Ruby version: Do you have a file .ruby-version in your project root?" if ruby_version.empty?
 
-  # invoke :'rbenv:use', ruby_version
+  invoke :'rbenv:load', ruby_version
 end
 
 task :setup do
@@ -75,7 +75,7 @@ task :deploy do
     invoke :'deploy:cleanup'
 
     on :launch do
-      # command "sudo service #{fetch(:user)} restart"
+      command "sh #{fetch(:deploy_to)}/current/unicorn_run.sh restart"
     end
   end
 
