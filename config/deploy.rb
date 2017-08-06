@@ -91,7 +91,7 @@ task :deploy => :environment do
     invoke :'deploy:cleanup'
 
     on :launch do
-      command "PORT=#{fetch(:app_port)} sh #{fetch(:deploy_to)}/current/unicorn_run.sh restart"
+      command "PORT=#{fetch(:app_port)} sh #{fetch(:deploy_to)}/current/unicorn_run.sh restart #{fetch(:deploy_to)}"
     end
   end
 
@@ -115,7 +115,7 @@ task :first_deploy => :environment do
     on :launch do
       command %[source ~/.bash_profile]
       invoke :'rails:db_create'
-      command "PORT=#{fetch(:app_port)} sh #{fetch(:deploy_to)}/current/unicorn_run.sh start"
+      command "PORT=#{fetch(:app_port)} sh #{fetch(:deploy_to)}/current/unicorn_run.sh start #{fetch(:deploy_to)}"
     end
   end
 end
