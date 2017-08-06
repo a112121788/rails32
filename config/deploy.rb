@@ -77,17 +77,17 @@ task :deploy do
   deploy do
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
-    command %[source ~/.bash_profile]
-    invoke :'git:clone'
-    invoke :'deploy:link_shared_paths'
-    invoke :'bundle:install'
-    invoke :'rails:db_migrate'
-    invoke :'rails:assets_precompile'
-    invoke :'deploy:cleanup'
+    # command %[source ~/.bash_profile]
+    # invoke :'git:clone'
+    # invoke :'deploy:link_shared_paths'
+    # invoke :'bundle:install'
+    # invoke :'rails:db_migrate'
+    # invoke :'rails:assets_precompile'
+    # invoke :'deploy:cleanup'
 
-    on :launch do
-      command "sh #{fetch(:deploy_to)}/current/unicorn_run.sh restart"
-    end
+    # on :launch do
+      # command "sh #{fetch(:deploy_to)}/current/unicorn_run.sh restart"
+    # end
   end
 
   # you can use `run :local` to run tasks on local machine before of after the deploy scripts
