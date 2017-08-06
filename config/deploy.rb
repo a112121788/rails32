@@ -1,13 +1,11 @@
-p "d"
 set :stages, %w(development test staging production)
-set :stages_dir, 'config/deploy'
 set :default_stage, 'development'
 
-require 'mina/multistage'
 require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
 require 'mina/rbenv'
+require 'mina/multistage'
 
 # Basic settings:
 #   domain       - The hostname to SSH to.
