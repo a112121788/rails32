@@ -115,7 +115,7 @@ task :first_deploy => :environment do
     on :launch do
       command %[source ~/.bash_profile]
       invoke :'rails:db_create'
-      command "PORT=#{fetch(:port)} sh #{fetch(:deploy_to)}/current/unicorn_run.sh start"
+      command "PORT=#{fetch(:app_port)} sh #{fetch(:deploy_to)}/current/unicorn_run.sh start"
     end
   end
 end
