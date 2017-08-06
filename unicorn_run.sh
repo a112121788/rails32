@@ -17,7 +17,7 @@ TIMEOUT=${TIMEOUT-60}
 APP_ROOT=/Users/dongjunjun/peng/my/rails_productions/rails32_deploy/current
 #APP_ROOT=/Users/dongjunjun/peng/my/rails_productions/rails_32
 PID=/Users/dongjunjun/peng/my/rails_productions/rails32_deploy/shared/unicorn.pid
-CMD="bundle exec unicorn_rails -D -c $APP_ROOT/config/unicorn.rb  -E development"
+CMD="/Users/dongjunjun/.rbenv/shims/bundle exec unicorn_rails -D -c $APP_ROOT/config/unicorn.rb  -E development"
 UPGRADE_DELAY=${UPGRADE_DELAY-2}
 action="$1"
 set -u
