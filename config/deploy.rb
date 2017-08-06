@@ -68,15 +68,15 @@ development:
     command %[test -e #{path_secrets_yml} || echo "#{secrets_yml}" > #{path_secrets_yml}]
 
     # Remove others-permission for config directory
-    command %[chmod -R o-rwx config]
+    # command %[chmod -R o-rwx config]
   end
 
 end
 
 desc "Deploys the current version to the server."
-task :deploy do
-  # uncomment this line to make sure you pushed your local branch to the remote origin
-  # invoke :'git:ensure_pushed'
+task :deploy => :environment do
+# uncomment this line to make sure you pushed your local branch to the remote origin
+# invoke :'git:ensure_pushed'
   deploy do
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
@@ -89,14 +89,33 @@ task :deploy do
     invoke :'deploy:cleanup'
 
     on :launch do
-      command "sh #{fetch(:deploy_to)}/current/unicorn_run.sh restart"
+      command "PORT=#{fetch(:port)} sh #{fetch(:deploy_to)}/current/unicorn_run.sh restart"
     end
   end
 
-  # you can use `run :local` to run tasks on local machine before of after the deploy scripts
-  # run(:local){ say 'done' }
+# you can use `run :local` to run tasks on local machine before of after the deploy scripts
+# run(:local){ say 'done' }
 end
 
+desc "Deploys the current version to the server."
+task :first_deploy => :environment do
+  command %[echo "-----> Server: #{fetch(:domain)}"]
+  command %[echo "-----> Path: #{fetch(:deploy_to)}"]
+  command %[echo "-----> Branch: #{fetch(:branch)}"]
+
+  deploy do
+    command %[source ~/.bash_profile]
+    invoke :'git:clone'
+    invoke :'deploy:link_shared_paths'
+    invoke :'bundle:install'
+    invoke :'deploy:cleanup'
+
+    on :launch do
+      invoke :'rails:db_create'
+      command "PORT=#{fetch(:port)} sh #{fetch(:deploy_to)}/current/unicorn_run.sh start"
+    end
+  end
+end
 # For help in making your deploy script, see the Mina documentation:
 #
 #  - https://github.com/mina-deploy/mina/tree/master/docs
