@@ -91,7 +91,7 @@ task :deploy => :environment do
     invoke :'deploy:cleanup'
 
     on :launch do
-      command "PORT=#{fetch(:port)} sh #{fetch(:deploy_to)}/current/unicorn_run.sh restart"
+      command "PORT=#{fetch(:app_port)} sh #{fetch(:deploy_to)}/current/unicorn_run.sh restart"
     end
   end
 
