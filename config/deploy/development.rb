@@ -1,6 +1,6 @@
 set :application_name, 'rails32'
 set :domain, '192.168.99.233' #'example.com'
-set :port, '10001'
+set :app_port, '10001'
 set :user, 'dongjunjun' #fetch(:application_name)
 set :deploy_to, '/Users/dongjunjun/peng/my/rails_productions/rails32_dev' #"/home/#{fetch(:user)}/app"
 set :repository, 'git@git.oschina.net:a112121788/rails_32.git'
