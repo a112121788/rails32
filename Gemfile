@@ -8,6 +8,7 @@ gem 'rails', '3.2.22.2'
 gem 'sqlite3'
 gem 'unicorn', '5.1.0'
 gem 'mina'
+gem 'mina-multistage', require: false
 
 # Gems used only for assets and not required
 # in production environments by default.
