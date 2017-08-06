@@ -7,6 +7,8 @@ require 'mina/git'
 require 'mina/rbenv'
 require 'mina/multistage'
 
+set :rbenv_path, '/Users/dongjunjun/.rbenv'
+
 # Basic settings:
 #   domain       - The hostname to SSH to.
 #   deploy_to    - Path to deploy into.
@@ -111,6 +113,7 @@ task :first_deploy => :environment do
     invoke :'deploy:cleanup'
 
     on :launch do
+      command %[source ~/.bash_profile]
       invoke :'rails:db_create'
       command "PORT=#{fetch(:port)} sh #{fetch(:deploy_to)}/current/unicorn_run.sh start"
     end
