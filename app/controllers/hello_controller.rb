@@ -1,5 +1,5 @@
 class HelloController < ApplicationController
   def index
-    @remote_ip = request.remote_ip
+    @user = User.last
   end
 end
